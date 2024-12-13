@@ -1,16 +1,22 @@
 package com.example.desarrollo_tp.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-
+import java.util.ArrayList;
+import jakarta.persistence.*;
 @Entity
 public class Vendedor {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String nombre;
-    //private Direccion direccion;
-    //private Coordenada coordenadas;
-    //private ArrayList<ItemMenu> itemMenu;
-    //private ArrayList<Pedido> pedidos;
+    @OneToOne
+    @JoinColumn(name = "direccion_id")
+    private Direccion direccion;
+    @OneToOne
+    @JoinColumn(name = "coordenadas_id")
+    private Coordenada coordenadas;
+    @Transient
+    private ArrayList<ItemMenu> itemMenu;
+    @Transient
+    private ArrayList<Pedido> pedidos;
 }

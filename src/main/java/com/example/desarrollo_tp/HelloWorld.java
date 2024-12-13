@@ -14,7 +14,7 @@ public class HelloWorld {
         Categoria categoria = new Categoria(); // Initialize categoria properly
         Vendedor vendedor = new Vendedor(); // Initialize vendedor properly
         ItemMenu item = new Bebida("Coca Cola", "Bebida gaseosa", 1.5, true, false, categoria, vendedor, 0.0, 500);
-        String bebida;
+        String bebida = "sn";
         return bebida;
     }
 }

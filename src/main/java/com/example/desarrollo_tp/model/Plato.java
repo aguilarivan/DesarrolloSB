@@ -1,9 +1,12 @@
 package com.example.desarrollo_tp.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.*;
 
+import lombok.Data;
+
+@Data
 @Entity
+@DiscriminatorValue("PLATO")
 public class Plato extends ItemMenu{
 
     private double calorias;
@@ -20,8 +23,8 @@ public class Plato extends ItemMenu{
     public double peso() {return peso * 1.1;}
     public boolean esComida(){return true;}
     public boolean esBebida(){return false;}
-    public boolean aptoVegano(){return this.isAptoCeliaco();}
-    public boolean aptoCeliaco(){return this.isAptoVegano();}
+    public boolean aptoVegano(){return this.getAptoVegano();}
+    public boolean aptoCeliaco(){return this.getAptoCeliaco();}
 
     public void prueba(String nombre, String descripcion, double precio, boolean aptoVegano, boolean aptoCeliaco, Categoria categoria, Vendedor vendedor, double calorias, double peso){
 

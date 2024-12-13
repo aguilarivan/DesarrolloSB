@@ -1,8 +1,9 @@
 package com.example.desarrollo_tp.model;
 
-import jakarta.persistence.Entity;
+import jakarta.persistence.*;
 
 @Entity
+@DiscriminatorValue("BEBIDA")
 public class Bebida extends ItemMenu{
 
     private double graduacionAlcoholica;

@@ -1,13 +1,12 @@
 package com.example.desarrollo_tp.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class Pago {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
     //PagoStrategy metodoDePago;
     double monto;

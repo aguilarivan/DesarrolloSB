@@ -1,12 +1,14 @@
 package com.example.desarrollo_tp.model;
 import jakarta.persistence.*;
 
-
+@Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE) // Puedes cambiar a JOINED o TABLE_PER_CLASS según el caso.
+@DiscriminatorColumn(name = "tipo_item", discriminatorType = DiscriminatorType.STRING)
 public abstract class ItemMenu {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    int id;
     private String nombre;
     private String descripcion;
     private double precio;
