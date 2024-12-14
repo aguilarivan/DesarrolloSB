@@ -30,7 +30,7 @@ public class VendedorService {
         vendedorRepository.deleteById(id);
     }
 
-    // EDITAR VENDEDOR - Actualizar un vendedor
+    // PUT VENDEDOR - Actualizar un vendedor
     public Vendedor actualizarVendedor(int id, Vendedor vendedorActualizado){
         return vendedorRepository.findById(id)
                 .map(vendedor -> {

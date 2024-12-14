@@ -1,6 +1,14 @@
 package com.example.desarrollo_tp.model;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
 import jakarta.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = Plato.class, name = "plato"),
+        @JsonSubTypes.Type(value = Bebida.class, name = "bebida")
+})
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "tipo_item", discriminatorType = DiscriminatorType.STRING)

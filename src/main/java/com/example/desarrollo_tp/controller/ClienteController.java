@@ -32,7 +32,7 @@ public class ClienteController {
         return clienteService.obtenerPorId(id);
     }
 
-    // Actualizar un cliente
+    // PUT CLIENTE - Actualizar un cliente
     @PutMapping("/{id}")
     public Cliente actualizarCliente(@PathVariable Integer id, @RequestBody Cliente clienteActualizado) {
         return clienteService.actualizarCliente(id, clienteActualizado);

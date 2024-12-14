@@ -18,6 +18,15 @@ public class ItemMenuService {
     private BebidaRepository bebidaRepository;
     @Autowired
     private VendedorRepository vendedorRepository;
+    @Autowired
+    private ItemMenuRepository itemMenuRepository;
+
+    // GET ITEM MENU - Obtener todos los items de menú
+    public List<ItemMenu> obtenerItemsMenu() {
+        return itemMenuRepository.findAll();
+    }
+
+
 
     public Plato crearPlato(Plato plato) {
         int categoriaId = plato.getCategoria().getId(); // Se obtiene el ID de la categoría desde el objeto recibido

@@ -27,13 +27,11 @@ public class ClienteService {
         return clienteRepository.findById(id);
     }
 
-    // Actualizar un cliente
+    // PUT CLIENTE - Actualizar un cliente
     public Cliente actualizarCliente(Integer id, Cliente clienteActualizado) {
         return clienteRepository.findById(id)
                 .map(cliente -> {
-                 //   cliente.setNombre(clienteActualizado.getNombre());
-               //     cliente.setCuit(clienteActualizado.getCuit());
-               //     cliente.setEmail(clienteActualizado.getEmail());
+                    cliente.modificarCliente(clienteActualizado);
                     return clienteRepository.save(cliente);
                 })
                 .orElseThrow(() -> new RuntimeException("Cliente no encontrado"));

@@ -11,10 +11,10 @@ public class Cliente implements EventListener {
     private String nombre;
     private long cuit;
     private String email;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "direccion_id")
     private Direccion direccion;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "coordenadas_id")
     private Coordenada coordenadas;
 

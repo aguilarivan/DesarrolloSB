@@ -34,7 +34,7 @@ public class VendedoresController {
     public Vendedor actualizarVendedor(@PathVariable Integer id, @RequestBody Vendedor vendedorActualizado) {
         return vendedorService.actualizarVendedor(id, vendedorActualizado);
     }
-    // DELETE CLIENTE - Eliminar un cliente
+    // DELETE VENDEDOR - Eliminar un vendedor
     @DeleteMapping("/{id}")
     public void eliminarVendedor(@PathVariable Integer id){
         vendedorService.eliminarVendedor(id);

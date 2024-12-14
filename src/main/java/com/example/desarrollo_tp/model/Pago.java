@@ -8,9 +8,9 @@ public class Pago {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    //@OneToOne
-    //@JoinColumn(name = "metodoDePago_id")
-    // private PagoStrategy metodoDePago;
+    //@ManyToOne
+    //@JoinColumn(name = "metodo_pago_id")
+    //private MediosDePagos metodoDePago;
     private double monto;
     private boolean pagado;
     private String cbu;
