@@ -14,16 +14,14 @@ public class ClienteService {
     @Autowired
     private ClienteRepository clienteRepository;
 
-    // Crear un cliente
+    // POST CLIENTE - Crear un cliente
     public Cliente crearCliente(Cliente cliente) {
         return clienteRepository.save(cliente);
     }
-
-    // Obtener todos los clientes
+    // GET CLIENTES - Obtener todos los clientes
     public List<Cliente> obtenerTodos() {
         return clienteRepository.findAll();
     }
-
     // Obtener un cliente por ID
     public Optional<Cliente> obtenerPorId(Integer id) {
         return clienteRepository.findById(id);
@@ -33,9 +31,9 @@ public class ClienteService {
     public Cliente actualizarCliente(Integer id, Cliente clienteActualizado) {
         return clienteRepository.findById(id)
                 .map(cliente -> {
-                    cliente.setNombre(clienteActualizado.getNombre());
-                    cliente.setCuit(clienteActualizado.getCuit());
-                    cliente.setEmail(clienteActualizado.getEmail());
+                 //   cliente.setNombre(clienteActualizado.getNombre());
+               //     cliente.setCuit(clienteActualizado.getCuit());
+               //     cliente.setEmail(clienteActualizado.getEmail());
                     return clienteRepository.save(cliente);
                 })
                 .orElseThrow(() -> new RuntimeException("Cliente no encontrado"));

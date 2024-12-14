@@ -15,13 +15,12 @@ public class ClienteController {
     @Autowired
     private ClienteService clienteService;
 
-    // Crear un cliente
+    // POST CLIENTE - Crear un cliente
     @PostMapping
     public Cliente crearCliente(@RequestBody Cliente cliente) {
         return clienteService.crearCliente(cliente);
     }
-
-    // Obtener todos los clientes
+    // GET CLIENTES - Obtener todos los clientes
     @GetMapping
     public List<Cliente> obtenerTodos() {
         return clienteService.obtenerTodos();

@@ -1,0 +1,19 @@
+package com.example.desarrollo_tp.model;
+
+public class MercadoPago implements PagoStrategy{
+    @Override
+    public MediosDePagos getMedioDePago() {
+        return MediosDePagos.MERCADO_PAGO;
+    }
+    @Override
+    public double precio(double precio) {
+        return precio * 1.04;
+    }
+    @Override
+    public void obtenerInformacion(Pago pago) {
+        System.out.println("Vas a pagar con " + this.getMedioDePago());
+       // InterfazPagoMercadoPago interfazPago = new InterfazPagoMercadoPago(pago);
+       // interfazPago.setVisible(true);
+    }
+
+}
