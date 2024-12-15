@@ -37,11 +37,11 @@ public class Cliente implements EventListener {
     public Coordenada getCoordenadas() {return coordenadas;}
 
     // Setters -----------------------------------------------------------------------------------------------------------------------------------------
-    private void setNombre(String nombre) {this.nombre = nombre;}
-    private void setCuit(long cuit) {this.cuit = cuit;}
-    private void setEmail(String email) {this.email = email;}
-    private void setDireccion(Direccion direccion) {this.direccion = direccion;}
-    private void setCoordenadas(Coordenada coordenadas) {this.coordenadas = coordenadas;}
+    public void setNombre(String nombre) {this.nombre = nombre;}
+    public void setCuit(long cuit) {this.cuit = cuit;}
+    public void setEmail(String email) {this.email = email;}
+    public void setDireccion(Direccion direccion) {this.direccion = direccion;}
+    public void setCoordenadas(Coordenada coordenadas) {this.coordenadas = coordenadas;}
 
     //  Methods -----------------------------------------------------------------------------------------------------------------------------------------
     public boolean nombreIgual(String nombre) {return this.getNombre().equalsIgnoreCase(nombre);}

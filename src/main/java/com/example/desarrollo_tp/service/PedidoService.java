@@ -1,53 +1,54 @@
-package com.example.desarrollo_tp.service;
+    package com.example.desarrollo_tp.service;
 
-import com.example.desarrollo_tp.model.Pedido;
-import com.example.desarrollo_tp.repository.PedidoRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+    import com.example.desarrollo_tp.model.*;
+    import com.example.desarrollo_tp.repository.*;
+    import org.springframework.beans.factory.annotation.Autowired;
+    import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
+    import java.util.List;
+    @Service
+    public class PedidoService {
 
-@Service
-public class PedidoService {
+        @Autowired
+        private PedidoRepository pedidoRepository;
 
-    private final PedidoRepository pedidoRepository;
+        // POST
+        public Pedido crearPedido(Pedido pedido) {
+            // Aquí podrías agregar lógica adicional, por ejemplo, validar los datos antes de guardar
+            if (pedido.getItemsPedidos().isEmpty()) {
+                throw new IllegalArgumentException("El pedido debe contener al menos un item.");
+            }
 
-    @Autowired
-    public PedidoService(PedidoRepository pedidoRepository) {
-        this.pedidoRepository = pedidoRepository;
-    }
-
-    // Crear un nuevo pedido
-    public Pedido crearPedido(Pedido pedido) {
-        return pedidoRepository.save(pedido);
-    }
-
-    // Obtener todos los pedidos
-    public List<Pedido> obtenerPedidos() {
-        return pedidoRepository.findAll();
-    }
-
-    // Obtener un pedido por su ID
-    public Optional<Pedido> obtenerPedidoPorId(int id) {
-        return pedidoRepository.findById(id);
-    }
-
-    // Actualizar un pedido
-    public Pedido actualizarPedido(int id, Pedido pedido) {
-        if (pedidoRepository.existsById(id)) {
-            pedido.setId(id);
+            // Guardar el pedido en la base de datos
             return pedidoRepository.save(pedido);
         }
-        return null;  // Retorna null si no existe el pedido
-    }
 
-    // Eliminar un pedido
-    public boolean eliminarPedido(int id) {
-        if (pedidoRepository.existsById(id)) {
-            pedidoRepository.deleteById(id);
-            return true;
+        // GET PEDIDOS - Obtener todos los pedidos
+        public List<Pedido> obtenerPedidos() {
+            return pedidoRepository.findAll();
         }
-        return false;  // Retorna false si no existe el pedido
+
+
+        // PUT - Actualizar un pedido
+        public Pedido editarPedido(int id, Pedido pedido) {
+            // Verifica si el pedido con el id existe
+            Pedido pedidoExistente = pedidoRepository.findById(id)
+                    .orElseThrow(() -> new RuntimeException("Pedido no encontrado con el ID: " + id));
+
+            // Actualiza los campos del pedido existente con los nuevos valores
+            pedidoExistente.setCliente(pedido.getCliente());
+            pedidoExistente.setItemsPedidos(pedido.getItemsPedidos());
+            pedidoExistente.setPago(pedido.getPago());
+            pedidoExistente.setEstado(pedido.getEstado());
+            pedidoExistente.setVendedor(pedido.getVendedor());
+
+            // Guarda el pedido actualizado en la base de datos
+            return pedidoRepository.save(pedidoExistente);
+        }
+
+        // DELETE PEDIDO - Eliminar un pedido
+        public void eliminarPedido(int id) {
+            pedidoRepository.deleteById(id);
+        }
+
     }
-}

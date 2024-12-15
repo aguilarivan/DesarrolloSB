@@ -25,6 +25,25 @@ public class ItemMenuController {
         List<ItemMenu> itemsMenu = itemMenuService.obtenerItemsMenu();
         return ResponseEntity.ok(itemsMenu); // Devolver la lista de items
     }
+    // DELETE ITEM MENU - Eliminar un item del menú
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> eliminarItemMenu(@PathVariable int id) {
+        itemMenuService.eliminarItemMenu(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    // PUT  PLATO - Actualizar un plato
+    @PutMapping("/plato/{id}")
+    public ResponseEntity<Plato> editarPlato(@PathVariable int id, @RequestBody Plato plato) {
+        Plato platoEditado = itemMenuService.editarPlato(id, plato);
+        return ResponseEntity.ok(platoEditado);
+    }
+    // PUT BEBIDA - Actualizar una bebida
+    @PutMapping("/bebida/{id}")
+    public ResponseEntity<Bebida> editarBebida(@PathVariable int id, @RequestBody Bebida bebida) {
+        Bebida bebidaEditada = itemMenuService.editarBebida(id, bebida);
+        return ResponseEntity.ok(bebidaEditada);
+    }
 
     // POST PLATO - Crear un plato
     @PostMapping("/plato")

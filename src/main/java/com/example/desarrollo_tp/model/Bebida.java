@@ -23,8 +23,8 @@ public class Bebida extends ItemMenu{
     public double getTamanio() {return tamanio;}
 
     // Setters -----------------------------------------------------------------------------------------------------------------------------------------
-    private void setGraduacionAlcoholica(double graduacionAlcoholica) {this.graduacionAlcoholica = graduacionAlcoholica;}
-    private void setTamanio(double tamanio) {this.tamanio = tamanio;}
+    public void setGraduacionAlcoholica(double graduacionAlcoholica) {this.graduacionAlcoholica = graduacionAlcoholica;}
+    public void setTamanio(double tamanio) {this.tamanio = tamanio;}
 
     // Methods -----------------------------------------------------------------------------------------------------------------------------------------
     @Override

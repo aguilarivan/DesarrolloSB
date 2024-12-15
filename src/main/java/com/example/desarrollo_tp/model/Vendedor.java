@@ -176,14 +176,14 @@ public class Vendedor {
             for (Plato p : platosVeganos)
                 p.printItemMenu();
     }
-    public ArrayList<Pedido> filtrarPedidosPorEstado(TipoEstado estado) {
-        ArrayList<Pedido> pedidosFiltrados = new ArrayList<>();
-        for (Pedido p : this.pedidos) {
-            if (p.getEstado().getEstado().equals(estado))
-                pedidosFiltrados.add(p);
-        }
-        return pedidosFiltrados;
-    }
+//    public ArrayList<Pedido> filtrarPedidosPorEstado(TipoEstado estado) {
+//        ArrayList<Pedido> pedidosFiltrados = new ArrayList<>();
+//        for (Pedido p : this.pedidos) {
+//            if (p.getEstado().getEstado().equals(estado))
+//                pedidosFiltrados.add(p);
+//        }
+//        return pedidosFiltrados;
+//    }
 
 //    public void cambiarEstadoPedido(TipoEstado e) {
 //        ArrayList<Pedido> pedidosFiltrados = this.filtrarPedidosPorEstado(e);

@@ -1,5 +1,6 @@
 package com.example.desarrollo_tp.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 @Entity
@@ -13,6 +14,7 @@ public class ItemPedido {
     private ItemMenu itemMenu;
     @ManyToOne
     @JoinColumn(name = "pedido_id")
+    @JsonBackReference  // Evita la recursión infinita aquí
     private Pedido pedido;
 
     // Constructor ------------------------------------------------------------------------------------------------------------------------------------
@@ -28,7 +30,7 @@ public class ItemPedido {
     public int getId() {return this.id;}
 
     // Setters ------------------------------------------------------------------------------------------------------------------------------------
-    private void setItemMenu(ItemMenu itemMenu) {this.itemMenu = itemMenu;}
-    private void setPedido(Pedido pedido) {this.pedido = pedido;}
+    public void setItemMenu(ItemMenu itemMenu) {this.itemMenu = itemMenu;}
+    public void setPedido(Pedido pedido) {this.pedido = pedido;}
 
 }

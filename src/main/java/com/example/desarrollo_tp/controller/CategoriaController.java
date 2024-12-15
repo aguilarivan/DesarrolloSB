@@ -26,4 +26,10 @@ public class CategoriaController {
         return categoriaService.obtenerTodos();
     }
 
+    // DELETE CATEGORIA - Eliminar una categoria
+    @DeleteMapping("/{id}")
+    public void eliminarCategoria(@PathVariable int id) {
+        categoriaService.eliminarCategoria(id);
+    }
+
 }

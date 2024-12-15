@@ -1,5 +1,6 @@
 package com.example.desarrollo_tp.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,17 +11,16 @@ public class Pedido extends EventManager {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;
-    @OneToMany
-    @JoinColumn(name = "pedido_id")
+    @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference  // Evita la recursión infinita aquí
     private List<ItemPedido> itemsPedidos;
-    @ManyToOne
-    @JoinColumn(name = "estado_id")
+    @Enumerated(EnumType.STRING)  // Almacena el nombre del enum como texto en la base de datos
     private Estado estado;
     @ManyToOne
-    @JoinColumn(name = "pago_id")
+    @JoinColumn(name = "pago_id", nullable = true)
     private Pago pago;
     @ManyToOne
     @JoinColumn(name = "vendedor_id")
@@ -34,16 +34,12 @@ public class Pedido extends EventManager {
         setPago(pago);
         setVendedor(vendedor);
         itemsPedidos = new ArrayList<>();
-        if (estado == null)
-            this.estado = new EstadoRECIBIDO();
-        else
-            this.estado = estado;
+        setEstado(estado);
     }
     public Pedido(Cliente cliente, List<ItemPedido> itemsPedidos, Vendedor vendedor, Pago pago) {
         super();
         setCliente(cliente);
         setItemsPedidos(itemsPedidos);
-        this.estado = new EstadoRECIBIDO();
         setVendedor(vendedor);
         setPago(pago);
     }
@@ -57,51 +53,29 @@ public class Pedido extends EventManager {
     public Vendedor getVendedor() {return vendedor;}
 
     // Setters ------------------------------------------------------------------------------------------------------------------------------------------
-    private void setCliente(Cliente cliente) {
+    public void setCliente(Cliente cliente) {
         this.cliente = cliente;
         this.addEventListener(cliente);
     }
-    private void setItemsPedidos(List<ItemPedido> itemsPedidos) {this.itemsPedidos = itemsPedidos;}
-    private void setPago(Pago pago) {this.pago = pago;}
+        public void setItemsPedidos(List<ItemPedido> itemsPedidos) {
+            this.itemsPedidos = itemsPedidos;
+            for (ItemPedido item : itemsPedidos) {
+                item.setPedido(this);  // Establece la relación inversa
+            }
+        }
+
+        public void setPago(Pago pago) {this.pago = pago;}
     public void addItemPedido(ItemPedido itemPedido) {
         itemsPedidos.add(itemPedido);
-        // DAOFactory.getInstance().getItemsPedidoDAO().addItemPedido(itemPedido);
+        itemPedido.setPedido(this);  // Establece la relación bidireccional
     }
+
     public void setId(int id) {this.id = id;}
     public void setVendedor(Vendedor vendedor) {this.vendedor = vendedor;}
     public void setEstado(Estado estado) {this.estado = estado;}
 
     // Methods -----------------------------------------------------------------------------------------------------------------------------------------
-    public TipoEstado estado() {return estado.getEstado();}
 
-    public void actualizarEstado() {
-        setEstado(estado.siguiente());
-
-        System.out.println("Estado actualizado: " + estado.stringEstado());
-        System.out.println("Estado del pedido " + this.getEstado().stringEstado());
-        try{
-        //    PedidosController.getInstance().cambioEstado(this);
-            System.out.println("Estado actualizado: " + this.getEstado().stringEstado());
-        }catch (Exception e) {
-        //    JOptionPane.showMessageDialog(null, e.getMessage());
-        }
-
-        if (this.getEstado() instanceof EstadoENVIADO) {
-            try{
-            //    pago.pagar();
-            }
-            catch(Exception e){
-            //    JOptionPane.showMessageDialog(null, "Error al realizar el pago");
-                try{
-            //        PedidosController.getInstance().eliminarPedido(id);
-                }catch(Exception e2){
-            //        JOptionPane.showMessageDialog(null, "Error al eliminar el pedido");
-                }
-            }
-
-        }
-        this.notifyListeners(this);
-    }
 
     public double calcularPrecioBase() {
         double precioBase = 0;

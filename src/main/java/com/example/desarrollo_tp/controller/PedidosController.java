@@ -8,55 +8,39 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/pedidos")
 public class PedidosController {
 
-    private final PedidoService pedidoService;
-
     @Autowired
-    public PedidosController(PedidoService pedidoService) {
-        this.pedidoService = pedidoService;
-    }
+    private PedidoService pedidoService;
 
-    // Crear un nuevo pedido
+    // POST PEDIDO - Crear un pedido
     @PostMapping
     public ResponseEntity<Pedido> crearPedido(@RequestBody Pedido pedido) {
-        Pedido nuevoPedido = pedidoService.crearPedido(pedido);
-        return new ResponseEntity<>(nuevoPedido, HttpStatus.CREATED);
+        try {
+            Pedido nuevoPedido = pedidoService.crearPedido(pedido);
+            return new ResponseEntity<>(nuevoPedido, HttpStatus.CREATED);  // Devuelve el nuevo pedido creado
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);  // Si hay error, devuelve 400
+        }
     }
 
-    // Obtener todos los pedidos
+    // GET PEDIDOS - Obtener todos los pedidos
     @GetMapping
     public ResponseEntity<List<Pedido>> obtenerPedidos() {
         List<Pedido> pedidos = pedidoService.obtenerPedidos();
-        return new ResponseEntity<>(pedidos, HttpStatus.OK);
+        return ResponseEntity.ok(pedidos); // Devolver la lista de pedidos
     }
 
-    // Obtener un pedido por ID
-    @GetMapping("/{id}")
-    public ResponseEntity<Pedido> obtenerPedidoPorId(@PathVariable int id) {
-        Optional<Pedido> pedido = pedidoService.obtenerPedidoPorId(id);
-        return pedido.map(ResponseEntity::ok)
-                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
-    }
-
-    // Actualizar un pedido
-    @PutMapping("/{id}")
-    public ResponseEntity<Pedido> actualizarPedido(@PathVariable int id, @RequestBody Pedido pedido) {
-        Pedido pedidoActualizado = pedidoService.actualizarPedido(id, pedido);
-        return pedidoActualizado != null ?
-                new ResponseEntity<>(pedidoActualizado, HttpStatus.OK) :
-                new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    }
-
-    // Eliminar un pedido
+    // DELETE PEDIDO - Eliminar un pedido
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> eliminarPedido(@PathVariable int id) {
-        boolean eliminado = pedidoService.eliminarPedido(id);
-        return eliminado ? new ResponseEntity<>(HttpStatus.NO_CONTENT) :
-                new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        pedidoService.eliminarPedido(id);
+        return ResponseEntity.noContent().build();
     }
+
+
 }

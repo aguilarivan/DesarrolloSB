@@ -23,4 +23,9 @@ public class CategoriaService {
         return categoriaRepository.findAll();
     }
 
+    // DELETE CATEGORIA - Eliminar una categoria
+    public void eliminarCategoria(int id) {
+        categoriaRepository.deleteById(id);
+    }
+
 }

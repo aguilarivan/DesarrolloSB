@@ -8,9 +8,8 @@ public class Pago {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    //@ManyToOne
-    //@JoinColumn(name = "metodo_pago_id")
-    //private MediosDePagos metodoDePago;
+    @Enumerated(EnumType.STRING)  // Almacena el nombre del enum como texto en la base de datos
+    private MediosDePagos medioDePago;
     private double monto;
     private boolean pagado;
     private String cbu;

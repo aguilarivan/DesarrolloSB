@@ -4,10 +4,11 @@ import jakarta.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
+
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
 @JsonSubTypes({
-        @JsonSubTypes.Type(value = Plato.class, name = "plato"),
-        @JsonSubTypes.Type(value = Bebida.class, name = "bebida")
+        @JsonSubTypes.Type(value = Plato.class, name = "PLATO"),
+        @JsonSubTypes.Type(value = Bebida.class, name = "BEBIDA")
 })
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
@@ -52,13 +53,13 @@ public abstract class ItemMenu {
 
     // Setters ------------------------------------------------------------------------------------------------------------------------------------------
     public void setId(int id){this.id = id;}
-    private void setNombre(String nombre){this.nombre = nombre;}
-    private void setDescripcion(String descripcion){this.descripcion = descripcion;}
-    private void setPrecio(double precio){this.precio = precio;}
+    public void setNombre(String nombre){this.nombre = nombre;}
+    public void setDescripcion(String descripcion){this.descripcion = descripcion;}
+    public void setPrecio(double precio){this.precio = precio;}
     public void setCategoria(Categoria categoria){this.categoria = categoria;}
     public void setVendedor(Vendedor vendedor){this.vendedor = vendedor;}
-    private void setAptoVegano(boolean aptoVegano){this.aptoVegano = aptoVegano;}
-    private void setAptoCeliaco(boolean aptoCeliaco){this.aptoCeliaco = aptoCeliaco;}
+    public void setAptoVegano(boolean aptoVegano){this.aptoVegano = aptoVegano;}
+    public void setAptoCeliaco(boolean aptoCeliaco){this.aptoCeliaco = aptoCeliaco;}
 
     // Métodos -----------------------------------------------------------------------------------------------------------------------------------------
     public void editarItem(String nombre, String descripcion, double precio, boolean aptoVegano, boolean aptoCeliaco, Categoria categoria, Vendedor vendedor) {
