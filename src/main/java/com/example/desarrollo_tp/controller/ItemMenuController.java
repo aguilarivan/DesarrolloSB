@@ -25,6 +25,8 @@ public class ItemMenuController {
         List<ItemMenu> itemsMenu = itemMenuService.obtenerItemsMenu();
         return ResponseEntity.ok(itemsMenu); // Devolver la lista de items
     }
+
+
     // DELETE ITEM MENU - Eliminar un item del menú
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> eliminarItemMenu(@PathVariable int id) {

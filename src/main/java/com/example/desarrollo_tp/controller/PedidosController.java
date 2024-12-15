@@ -28,6 +28,14 @@ public class PedidosController {
         }
     }
 
+    // PUT ESTADO PEDIDO - Actualizar el estado de un pedido
+    @PutMapping("changueStatus/{id}")
+    public ResponseEntity<Pedido> cambiarEstadoPedido(@PathVariable int id, @RequestBody Pedido pedido) {
+        Pedido pedidoEditado = pedidoService.editarPedido(id, pedido);
+        return ResponseEntity.ok(pedidoEditado);
+    }
+
+
     // GET PEDIDOS - Obtener todos los pedidos
     @GetMapping
     public ResponseEntity<List<Pedido>> obtenerPedidos() {

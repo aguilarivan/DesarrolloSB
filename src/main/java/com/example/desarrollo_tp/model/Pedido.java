@@ -76,7 +76,17 @@ public class Pedido extends EventManager {
 
     // Methods -----------------------------------------------------------------------------------------------------------------------------------------
 
-
+    public void updateEstado(Pedido p) {
+        if(p.getEstado().equals(Estado.RECIBIDO)){
+            this.setEstado(Estado.PREPARADO);
+        }
+        if(p.getEstado().equals(Estado.PREPARADO)){
+            this.setEstado(Estado.ACEPTADO);
+        }
+        if(p.getEstado().equals(Estado.ACEPTADO)){
+            this.setEstado(Estado.ENVIADO);
+        }
+    }
     public double calcularPrecioBase() {
         double precioBase = 0;
         for (ItemPedido itemPedido : itemsPedidos) {

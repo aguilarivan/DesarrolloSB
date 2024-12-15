@@ -28,6 +28,19 @@
             return pedidoRepository.findAll();
         }
 
+        // PUT ESTADO PEDIDO - Actualizar el estado de un pedido
+        public Pedido cambiarEstadoPedido(int id, Pedido pedido) {
+            // Verifica si el pedido con el id existe
+            Pedido pedidoExistente = pedidoRepository.findById(id)
+                    .orElseThrow(() -> new RuntimeException("Pedido no encontrado con el ID: " + id));
+
+            // Actualiza el estado del pedido existente con el nuevo valor
+            pedidoExistente.updateEstado(pedido);
+
+            // Guarda el pedido actualizado en la base de datos
+            return pedidoRepository.save(pedidoExistente);
+        }
+
 
         // PUT - Actualizar un pedido
         public Pedido editarPedido(int id, Pedido pedido) {
